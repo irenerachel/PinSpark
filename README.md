@@ -12,11 +12,31 @@
 
 ## 安装
 
-1. Clone 这个仓库或下载 ZIP 解压
-2. Chrome 地址栏打开 `chrome://extensions/`
-3. 右上角打开「开发者模式」
-4. 左上角点「加载已解压的扩展程序」，选 PinSpark 文件夹
-5. 工具栏出现 PinSpark 图标，可以钉到工具栏
+### 通用方式（推荐，所有 Chromium 系浏览器）
+
+适用于 Chrome / Edge / Brave / Arc / Opera / Vivaldi 等。
+
+1. 去 [Releases 页](https://github.com/irenerachel/PinSpark/releases) 下最新 `PinSpark-vX.X.X.zip`，解压
+2. 浏览器地址栏打开扩展管理页：
+   - Chrome：`chrome://extensions/`
+   - Edge：`edge://extensions/`
+   - Brave：`brave://extensions/`
+   - Arc / Opera / Vivaldi：各自类似 `xxx://extensions/`
+3. 右上角开「开发者模式」
+4. 左上角「加载已解压的扩展程序」→ 选解压后的 PinSpark 文件夹
+5. 工具栏出现 PinSpark 图标，可钉到工具栏
+
+### 直接装 CRX（仅限 Brave / Vivaldi）
+
+Chrome 和 Edge 出于安全策略**屏蔽了**第三方 CRX 拖拽安装，必须走上面的"加载已解压"。Brave / Vivaldi 比较宽容：
+1. 去 [Releases](https://github.com/irenerachel/PinSpark/releases) 下载 `PinSpark-vX.X.X.crx`
+2. 拖到 `brave://extensions/` 或 `vivaldi://extensions/`
+3. 点确认安装
+
+### 暂不支持
+
+- **Firefox** — 使用 `sidebar_action` API 而非 `sidePanel`，需要单独移植
+- **Safari** — Safari Web Extensions 必须 Xcode 打包，暂未做
 
 ## 配置 API Key（首次必做）
 
