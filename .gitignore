@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+*.log
+.env
+.env.local
+
+# 内部开发记录，不上 GitHub
+开发记录.md

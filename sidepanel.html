@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PinSpark</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <svg class="logo-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5282A4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.3-4.3"/>
+          <path class="spark-lg" d="M8.2 5.6v3.2 M6.6 7.2h3.2" stroke-width="1.8"/>
+          <path class="spark-md" d="M14 12.4v2 M13 13.4h2" stroke-width="1.4"/>
+          <path class="spark-sm" d="M20.5 4.5v1.6 M19.7 5.3h1.6" stroke-width="1.3" opacity="0.8"/>
+        </svg>
+        PinSpark
+      </h1>
+      <p class="subtitle">视觉灵感关键词生成器</p>
+      <button id="open-settings" class="settings-btn" title="设置">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="input-section">
+      <div class="input-row">
+        <input type="text" id="keyword" placeholder="输入主题，如：咖啡、极简海报、赛博朋克..." autofocus>
+        <button id="generate" title="生成">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+      <div class="options">
+        <label class="chip-label">
+          <input type="checkbox" id="opt-pinterest" checked>
+          <span class="chip">Pinterest</span>
+        </label>
+        <label class="chip-label">
+          <input type="checkbox" id="opt-behance">
+          <span class="chip">Behance</span>
+        </label>
+        <label class="chip-label">
+          <input type="checkbox" id="opt-huaban">
+          <span class="chip">花瓣网</span>
+        </label>
+        <label class="chip-label" title="英文关键词下方显示中文注释，复制时只复制英文原文">
+          <input type="checkbox" id="opt-translate" checked>
+          <span class="chip chip-translate">中文注释</span>
+        </label>
+        <select id="category">
+          <option value="auto">自动判断方向</option>
+          <option value="poster">海报 / 排版</option>
+          <option value="photo">摄影 / 电影感</option>
+          <option value="brand">品牌 / 商业</option>
+          <option value="art">插画 / 实验</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="results" class="results hidden">
+      <!-- Pinterest Section -->
+      <div id="pinterest-section" class="section">
+        <div class="section-header">
+          <h2>
+            <span class="dot dot-pin"></span>
+            Pinterest
+          </h2>
+          <button class="copy-all-btn" data-platform="pinterest" title="复制全部">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="14" height="14" x="8" y="8" rx="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            全部复制
+          </button>
+        </div>
+        <div id="pinterest-keywords" class="keyword-list"></div>
+      </div>
+
+      <!-- Behance Section -->
+      <div id="behance-section" class="section">
+        <div class="section-header">
+          <h2>
+            <span class="dot dot-be"></span>
+            Behance
+          </h2>
+          <button class="copy-all-btn" data-platform="behance" title="复制全部">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="14" height="14" x="8" y="8" rx="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            全部复制
+          </button>
+        </div>
+        <div id="behance-keywords" class="keyword-list"></div>
+      </div>
+
+      <!-- Huaban Section -->
+      <div id="huaban-section" class="section">
+        <div class="section-header">
+          <h2>
+            <span class="dot dot-hb"></span>
+            花瓣网
+          </h2>
+          <button class="copy-all-btn" data-platform="huaban" title="复制全部">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="14" height="14" x="8" y="8" rx="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            全部复制
+          </button>
+        </div>
+        <div id="huaban-keywords" class="keyword-list"></div>
+      </div>
+    </div>
+
+    <div id="empty-state" class="empty-state">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.3">
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"/>
+          <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"/>
+          <path d="M19 11h2m-1-1v2"/>
+        </svg>
+      </div>
+      <p>输入一个主题关键词</p>
+      <p class="hint">自动生成 Pinterest / Behance / 花瓣网 搜索短语</p>
+    </div>
+
+    <div id="toast" class="toast hidden">已复制!</div>
+
+    <!-- Settings Overlay -->
+    <div id="settings-overlay" class="settings-overlay hidden">
+      <div class="settings-panel">
+        <div class="settings-header">
+          <h3>API 设置</h3>
+          <button id="close-settings" class="close-btn">&times;</button>
+        </div>
+        <div class="settings-body">
+          <div class="setting-item">
+            <label for="provider-select">服务商</label>
+            <select id="provider-select" class="provider-select">
+              <option value="doubao">豆包 · 火山引擎</option>
+              <option value="deepseek">DeepSeek</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <label for="model-select">模型</label>
+            <select id="model-select" class="provider-select"></select>
+          </div>
+          <div class="setting-item">
+            <label for="api-key">API Key</label>
+            <input type="password" id="api-key" placeholder="输入 API Key">
+            <p id="key-hint" class="setting-hint"><a href="https://console.volcengine.com/ark" target="_blank" rel="noopener noreferrer">去火山方舟控制台获取 API Key →</a></p>
+          </div>
+        </div>
+        <button id="save-settings" class="save-btn">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>
