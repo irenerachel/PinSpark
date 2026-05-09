@@ -223,7 +223,45 @@ optTranslate.addEventListener('change', async () => {
   providerSelect.value = currentProvider;
   optTranslate.checked = data.withTranslation !== false;
   await syncProviderUI();
+  await restoreLastSearch();
 })();
+
+// ─── Restore previous results from session storage ───
+async function restoreLastSearch() {
+  try {
+    const { lastSearch } = await chrome.storage.session.get('lastSearch');
+    if (!lastSearch || !lastSearch.result || !Array.isArray(lastSearch.platforms)) return;
+
+    keywordInput.value = lastSearch.topic || '';
+    if (lastSearch.category) categorySelect.value = lastSearch.category;
+    if (typeof lastSearch.withTranslation === 'boolean') {
+      optTranslate.checked = lastSearch.withTranslation;
+    }
+
+    const platforms = lastSearch.platforms;
+    optPinterest.checked = platforms.includes('pinterest');
+    optBehance.checked = platforms.includes('behance');
+    optHuaban.checked = platforms.includes('huaban');
+
+    emptyState.classList.add('hidden');
+    resultsDiv.classList.remove('hidden');
+    pinterestSection.style.display = optPinterest.checked ? 'block' : 'none';
+    behanceSection.style.display = optBehance.checked ? 'block' : 'none';
+    huabanSection.style.display = optHuaban.checked ? 'block' : 'none';
+
+    if (optPinterest.checked && lastSearch.result.pinterest) {
+      renderKeywords(pinterestKeywords, lastSearch.result.pinterest, 'pinterest');
+    }
+    if (optBehance.checked && lastSearch.result.behance) {
+      renderKeywords(behanceKeywords, lastSearch.result.behance, 'behance');
+    }
+    if (optHuaban.checked && lastSearch.result.huaban) {
+      renderKeywords(huabanKeywords, lastSearch.result.huaban, 'huaban');
+    }
+  } catch (e) {
+    // session storage may be unavailable in old Chrome; silently ignore
+  }
+}
 
 // ─── API Call ───
 async function callAPI(topic, category, platforms, withTranslation) {
@@ -327,6 +365,17 @@ async function generate() {
     if (showHb && result.huaban) {
       renderKeywords(huabanKeywords, result.huaban, 'huaban');
     }
+    // Persist last search to session storage so panel reopen restores state
+    chrome.storage.session.set({
+      lastSearch: {
+        topic,
+        platforms,
+        category: categorySelect.value,
+        withTranslation: optTranslate.checked,
+        result,
+        ts: Date.now()
+      }
+    });
   } catch (err) {
     if (err.message === 'NO_KEY') {
       settingsOverlay.classList.remove('hidden');
