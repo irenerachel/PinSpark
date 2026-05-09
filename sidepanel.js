@@ -68,6 +68,7 @@ const PROVIDERS = {
       { id: 'kimi-k2-thinking', label: 'Kimi-K2-Thinking（推理强）' }
     ],
     defaultModel: 'kimi-k2.6',
+    temperature: 1,
     keyStorage: 'apiKey_kimi',
     hintLabel: '去 Kimi 开放平台申请 API Key',
     hintHref: 'https://platform.moonshot.cn/console/api-keys'
@@ -262,7 +263,7 @@ async function callAPI(topic, category, platforms, withTranslation) {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userContent }
       ],
-      temperature: 0.8,
+      temperature: cfg.temperature ?? 0.8,
       max_tokens: 4096
     })
   });
