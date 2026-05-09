@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "PinSpark - 视觉灵感关键词",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "快速生成 Pinterest & Behance & 花瓣网 高质量视觉搜索关键词，支持豆包 / DeepSeek / Kimi 三家 API，点击即填入当前页面搜索框",
   "permissions": ["sidePanel", "storage", "scripting"],
   "host_permissions": [

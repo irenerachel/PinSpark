@@ -473,8 +473,8 @@ header {
   position: absolute;
   top: calc(100% + 10px);
   right: -8px;
-  width: 200px;
-  padding: 12px;
+  width: 160px;
+  padding: 10px;
   background: var(--cream);
   border: 1.5px solid var(--bg-dark);
   border-radius: 14px;
