@@ -369,13 +369,76 @@ function renderKeywords(container, keywords, platform) {
   });
 }
 
-// ─── Copy ───
-function copyKeyword(item, text) {
+// ─── Inject into active tab's search box (fallback: clipboard) ───
+const SEARCH_HOSTS = ['pinterest.', 'behance.net', 'huaban.com'];
+
+function injectSearchKeyword(keyword) {
+  const selectors = [
+    'input[name="searchBoxInput"]',
+    '[data-test-id="search-box-input"]',
+    'input[name="search"]',
+    'header input[type="search"]',
+    'header input[placeholder*="搜索"]',
+    'header input[placeholder*="Search"]',
+    'header input[type="text"]',
+    'input[type="search"]',
+    'input[placeholder*="搜索"]',
+    'input[placeholder*="Search"]'
+  ];
+  let input = null;
+  for (const sel of selectors) {
+    const candidates = document.querySelectorAll(sel);
+    for (const el of candidates) {
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0 && el.offsetParent !== null) {
+        input = el;
+        break;
+      }
+    }
+    if (input) break;
+  }
+  if (!input) return false;
+  // React/Vue-friendly value setter
+  const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+  setter.call(input, keyword);
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+  input.focus();
+  return true;
+}
+
+async function copyKeyword(item, text) {
+  // 1. Always copy to clipboard as fallback
   navigator.clipboard.writeText(text).then(() => {
     item.classList.add('copied');
-    showToast('已复制');
     setTimeout(() => item.classList.remove('copied'), 1500);
   });
+  // 2. Try to inject into active tab's search box
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (!tab || !tab.id || !tab.url) {
+      showToast('已复制');
+      return;
+    }
+    const host = new URL(tab.url).hostname;
+    const supported = SEARCH_HOSTS.some(h => host.includes(h));
+    if (!supported) {
+      showToast('已复制');
+      return;
+    }
+    const results = await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: injectSearchKeyword,
+      args: [text]
+    });
+    if (results && results[0] && results[0].result) {
+      showToast('已填入搜索框');
+    } else {
+      showToast('已复制（页面搜索框未识别）');
+    }
+  } catch (e) {
+    showToast('已复制');
+  }
 }
 
 // Copy all keywords for a platform (only the en/原文 part, never the zh subtitle)
