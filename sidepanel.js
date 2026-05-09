@@ -57,6 +57,20 @@ const PROVIDERS = {
     keyStorage: 'apiKey_deepseek',
     hintLabel: '去 DeepSeek 平台申请 API Key',
     hintHref: 'https://platform.deepseek.com/api_keys'
+  },
+  'kimi': {
+    label: 'Kimi · 月之暗面',
+    endpoint: 'https://api.moonshot.cn/v1/chat/completions',
+    models: [
+      { id: 'kimi-k2.6', label: 'Kimi-K2.6（最新旗舰，默认）' },
+      { id: 'kimi-k2.5', label: 'Kimi-K2.5（稳定）' },
+      { id: 'kimi-k2-turbo-preview', label: 'Kimi-K2-Turbo-Preview（快速）' },
+      { id: 'kimi-k2-thinking', label: 'Kimi-K2-Thinking（推理强）' }
+    ],
+    defaultModel: 'kimi-k2.6',
+    keyStorage: 'apiKey_kimi',
+    hintLabel: '去 Kimi 开放平台申请 API Key',
+    hintHref: 'https://platform.moonshot.cn/console/api-keys'
   }
 };
 const DEFAULT_PROVIDER = 'doubao';
