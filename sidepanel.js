@@ -64,8 +64,7 @@ const PROVIDERS = {
     models: [
       { id: 'kimi-k2.6', label: 'Kimi-K2.6（最新旗舰，默认）' },
       { id: 'kimi-k2.5', label: 'Kimi-K2.5（稳定）' },
-      { id: 'kimi-k2-turbo-preview', label: 'Kimi-K2-Turbo-Preview（快速）' },
-      { id: 'kimi-k2-thinking', label: 'Kimi-K2-Thinking（推理强）' }
+      { id: 'moonshot-v1-32k', label: 'Moonshot-v1-32k（老版兜底）' }
     ],
     defaultModel: 'kimi-k2.6',
     temperature: 1,
