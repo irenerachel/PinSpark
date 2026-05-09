@@ -40,15 +40,15 @@
       </div>
       <div class="options">
         <label class="chip-label">
-          <input type="checkbox" id="opt-pinterest" checked>
+          <input type="radio" name="platform" id="opt-pinterest" value="pinterest" checked>
           <span class="chip">Pinterest</span>
         </label>
         <label class="chip-label">
-          <input type="checkbox" id="opt-behance">
+          <input type="radio" name="platform" id="opt-behance" value="behance">
           <span class="chip">Behance</span>
         </label>
         <label class="chip-label">
-          <input type="checkbox" id="opt-huaban">
+          <input type="radio" name="platform" id="opt-huaban" value="huaban">
           <span class="chip">花瓣网</span>
         </label>
         <label class="chip-label" title="英文关键词下方显示中文注释，复制时只复制英文原文">
@@ -130,7 +130,7 @@
         </svg>
       </div>
       <p>输入一个主题关键词</p>
-      <p class="hint">自动生成 Pinterest / Behance / 花瓣网 搜索短语</p>
+      <p class="hint">选一个平台（Pinterest / Behance / 花瓣网），生成对应搜索短语</p>
     </div>
 
     <div id="toast" class="toast hidden">已复制!</div>

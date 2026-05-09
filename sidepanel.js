@@ -299,11 +299,6 @@ async function generate() {
   const showBe = optBehance.checked;
   const showHb = optHuaban.checked;
 
-  if (!showPin && !showBe && !showHb) {
-    showToast('请至少选择一个平台');
-    return;
-  }
-
   const platforms = [];
   if (showPin) platforms.push('pinterest');
   if (showBe) platforms.push('behance');
