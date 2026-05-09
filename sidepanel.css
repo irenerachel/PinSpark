@@ -453,6 +453,11 @@ header {
   background: var(--cream);
 }
 
+/* === Collapse Button === */
+.collapse-btn {
+  right: 80px;
+}
+
 /* === Follow Button + QR Popover === */
 .follow-wrapper {
   position: absolute;

@@ -148,6 +148,12 @@ ${example}
   return prompt;
 }
 
+// ─── Collapse (close side panel; state is preserved by chrome.storage.session) ───
+const collapseBtn = document.getElementById('collapse-panel');
+collapseBtn.addEventListener('click', () => {
+  window.close();
+});
+
 // ─── Settings ───
 openSettingsBtn.addEventListener('click', () => settingsOverlay.classList.remove('hidden'));
 closeSettingsBtn.addEventListener('click', () => settingsOverlay.classList.add('hidden'));
