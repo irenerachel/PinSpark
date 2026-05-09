@@ -453,6 +453,60 @@ header {
   background: var(--cream);
 }
 
+/* === Follow Button + QR Popover === */
+.follow-wrapper {
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+
+.follow-wrapper .follow-btn {
+  position: static;
+}
+
+.follow-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -8px;
+  width: 200px;
+  padding: 12px;
+  background: var(--cream);
+  border: 1.5px solid var(--bg-dark);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(61, 57, 41, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, visibility 0.2s, transform 0.2s ease;
+  z-index: 1500;
+  pointer-events: none;
+}
+
+.follow-wrapper:hover .follow-popover,
+.follow-wrapper:focus-within .follow-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.follow-popover img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.follow-popover p {
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+
 /* === Settings Overlay === */
 .settings-overlay {
   position: fixed;
