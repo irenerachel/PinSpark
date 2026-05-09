@@ -22,13 +22,14 @@
 
 1. 点 PinSpark 图标 → 打开侧边栏
 2. 右上角齿轮按钮打开设置
-3. 选服务商（豆包 · 火山引擎 / DeepSeek）
+3. 选服务商（豆包 · 火山引擎 / DeepSeek / Kimi · 月之暗面）
 4. 选模型（默认各自最新旗舰）
 5. 粘贴 API Key 保存
    - 豆包 Key：[火山方舟控制台](https://console.volcengine.com/ark) → API Key 管理
    - DeepSeek Key：[platform.deepseek.com/api_keys](https://platform.deepseek.com/api_keys)
+   - Kimi Key：[platform.moonshot.cn/console/api-keys](https://platform.moonshot.cn/console/api-keys)
 
-两家 Key 各存各的，切换不会互相覆盖。
+三家 Key 各存各的，切换不会互相覆盖。
 
 ## 模型清单
 
@@ -42,6 +43,12 @@
 **DeepSeek**
 - DeepSeek-V4-Flash（默认）
 - DeepSeek-V4-Pro（推理强）
+
+**Kimi · 月之暗面**
+- Kimi-K2.6（默认，最新旗舰）
+- Kimi-K2.5（稳定）
+- Kimi-K2-Turbo-Preview（快速）
+- Kimi-K2-Thinking（推理强）
 
 ## 日常使用
 
